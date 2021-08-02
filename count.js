@@ -2,24 +2,21 @@ const down = document.querySelector(".down")
 const up  = document.querySelector(".up")
 const reset = document.querySelector(".reset")
 const number = document.querySelector(".number")
-let newnum= 0;
-
-function changeColor(){
-    if(newnum>0) {number.style.color='red';}
-    else if (newnum==0){number.style.color='black';}
+let nowNum=0; 
+function changeColor(newNum){
+    if(newNum>0) {number.style.color='red';}
+    else if (newNum==0){number.style.color='black';}
   else {number.style.color='blue';} }
 
 
+function renderNumber(newNum){
+        number.innerText=newNum; 
+          changeColor();}
 
-function increaseNumber() {
-    newnum+=1;
-    number.innerText=newnum;
- changeColor();}
-function resetNumber(){  
-        newnum=0;  number.innerText=newnum;changeColor();}
-function decreasNumber(){
-        newnum-=1;number.innerText=newnum; changeColor();}   
-
-up.addEventListener('click', increaseNumber)
-reset.addEventListener('click',resetNumber)
-down.addEventListener('click',decreasNumber)
+function setNumber(newNum){
+        nowNum = newNum;
+        renderNumber(newNum)
+}
+up.addEventListener('click', ()=> setNumber(nowNum+=1))
+reset.addEventListener('click',()=>setNumber(0))
+down.addEventListener('click',()=>setNumber(nowNum-=1))
