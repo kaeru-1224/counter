@@ -6,3 +6,54 @@
 newnum이 계속해서 0이되므로 증가가 되지 않았던것! 
 
 👀리팩토링도움
+👀리팩토링 받은것 정리
+✨3진 아웃! 
+1) 클릭시 수행되는 함수들 
+- 현재 수행되는 함수에서 공통의 부분을 찾아보자
+
+function increaseNumber() {
+    newnum+=1;
+    number.innerText=newnum;
+ changeColor();}
+function resetNumber(){  
+        newnum=0; 
+         number.innerText=newnum;
+         changeColor();}
+function decreasNumber(){
+        newnum-=1;
+        number.innerText=newnum; 
+        changeColor();}   
+
+-  number.innerText=newnum; / changeColor(); 이부분이 중복되는 것을 확인할 수있다 
+,그렇다면 이부분을 함수 하나로 바꿔본다면? 
+
+function renderNumber(){
+    number.innerText=newnum; 
+    changeColor();}
+
+function increaseNumber() { newnum+=1; renderNumber();}
+function resetNumber(){  newnum=0; renderNumber();}
+function decreasNumber(){newnum-=1; renderNumber();}   
+- 하지만 이렇게 함수를 줄여나가도 여전히 중복되는 것은 존재하는데 
+이걸다시 바꿔본다면 
+ 
+
+✨현재 값
+ let nowNum=0; 
+
+✔색을 바꿔주고, 내부문자를 바꿔줌
+function renderNumber(newNum){
+    number.innerText=newNum; 
+    changeColor();}
+
+✔nowNum을  newNum으로 숫자를 증가 감소 0 으로 만들어주고, renderNumber함수로 보내준다
+function setNumber(newNum){
+    nowNum=newNum
+    renderNumber(newNum)}
+up.addEventListener('click', ()=> setNumber(nowNum+1))
+reset.addEventListener('click',()=>setNumber(0))
+down.addEventListener('click',()=>setNumber(nowNum-1))
+
+🤔 
+()=> setNumber(nowNum+=1) 의경우 실행이되지만 setNumber(nowNum+=1)
+는 왜 실행이안되는거지?  
